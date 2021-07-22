@@ -14,8 +14,6 @@ function wordFrequency (text){
         }
     }
     return map;
-    
-
 }
 module.exports = wordFrequency;
 
