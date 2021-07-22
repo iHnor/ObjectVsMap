@@ -1,0 +1,24 @@
+{
+  "name": "objectvsmap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wordFrequency.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iHnor/ObjectVsMap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iHnor/ObjectVsMap/issues"
+  },
+  "homepage": "https://github.com/iHnor/ObjectVsMap#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "jest": "^27.0.6"
+  }
+}
