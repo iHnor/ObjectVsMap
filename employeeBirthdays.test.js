@@ -13,10 +13,27 @@ describe('Employee birthday', () => {
         expect(emp.funcCreateBirthdayList(employeesBirthdays)).toEqual(map)
     });
 
-    it('Change the number date to letter date', () => {
+    describe('Change the number date to letter date when', () => {
+        it('month number equal 0', () => {
         
+            let numberOfMonth = 0
+            expect(emp.funcChangeDate(numberOfMonth)).toBe('Январь')
+        });
+        it('month number equal 11', () => {
+        
+            let numberOfMonth = 11
+            expect(emp.funcChangeDate(numberOfMonth)).toBe('Декабрь')
+        });
+        it('month number equal 5', () => {
+        
+            let numberOfMonth = 5
+            expect(emp.funcChangeDate(numberOfMonth)).toBe('Июнь')
+        });
     });
-    // it('Rezult after output', () => {
-        
-    // });
+
+    describe('Pluralization ', () => {
+        it('if year equal 1', () => {
+            
+        });
+    });
 });
