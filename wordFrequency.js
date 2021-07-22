@@ -1,14 +1,15 @@
 function wordFrequency (text){
+    text = text.split(' ');
     let map = new Map();
 
     for (let i = 0; i < text.length; i++){ 
-        lowerText = text[i].toLowerCase();
+        let lowerText = text[i].toLowerCase();
 
         if (map.has(lowerText) == false) {
             map.set(lowerText, 1);
         }
         else {
-            valueKey = map.get(lowerText)
+            let valueKey = map.get(lowerText)
             map.set(lowerText, valueKey + 1);
         }
     }
@@ -16,6 +17,7 @@ function wordFrequency (text){
     
 
 }
+module.exports = wordFrequency;
 
 function printRezultat(printText){
     for (const [key, value] of printText){
@@ -23,8 +25,7 @@ function printRezultat(printText){
     }
 }
 
-someText = 'red Red rEd black'
-let splitText = someText.split(' ');
-let rezult = wordFrequency(splitText);
+let someText = 'red black'
+let rezult = wordFrequency(someText);
 printRezultat(rezult);
 
