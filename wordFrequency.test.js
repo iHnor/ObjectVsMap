@@ -12,4 +12,10 @@ describe('wordFrequency', () => {
 
         expect(wordFrequency('red Red')).toEqual(map)
     })
+
+    it('triple dou', () => {
+        let map = new Map([['dou', 3]]);
+
+        expect(wordFrequency('dou dou dou')).toEqual(map)
+    })
 })
