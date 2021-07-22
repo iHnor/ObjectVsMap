@@ -1,16 +1,17 @@
 function wordFrequency (text){
-    text = text.split(' ');
+    let words = text.toLowerCase().split(' ');
     let map = new Map();
 
-    for (let i = 0; i < text.length; i++){ 
-        let lowerText = text[i].toLowerCase();
-
-        if (map.has(lowerText) == false) {
-            map.set(lowerText, 1);
+    for (let i = 0; i < words.length; i++){ 
+        let word = words[i];
+        
+        if (map.has(word)) {
+            let count = map.get(word)
+            map.set(word, count + 1);
         }
         else {
-            let valueKey = map.get(lowerText)
-            map.set(lowerText, valueKey + 1);
+            map.set(word, 1);
+         
         }
     }
     return map;
