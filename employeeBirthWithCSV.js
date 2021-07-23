@@ -1,4 +1,18 @@
 const moment = require('moment');
+const csv = require('csv-parser');
+const fs = require('fs');
+
+function readCSVfile(){
+    const results = [];
+
+    fs.createReadStream('employeeBirthdays.csv')
+    .pipe(csv())
+    .on('data', (data) => employeesData.push(data))
+    .on('end', () => {
+        console.log(results);
+    });
+    return         
+}
 
 function birthdayList() {
 
@@ -111,7 +125,6 @@ let birthdays = birthdayList();
 let gorizontslPlanning = 11;
 let sortedBirthday = sortedBirthdayList(birthdays);
 
-outputOfRezult(sortedBirthday, gorizontslPlanning);
+// outputOfRezult(sortedBirthday, gorizontslPlanning);
 
-export {sortedBirthdayList as funcCreateBirthdayList, outputOfRezult as funcOutputOfRezult, changeDate as funcChangeDate,
-getAge as funcGetAge, pluralization as funcPluralization};
+readCSVfile();
