@@ -14,7 +14,7 @@ function birthdayList() {
     return employeesBirthdays;
 }
 
-function sortedBirthdayList(birthdays, planning) {
+function sortedListOnMonth(birthdays, planning) {
 
     let map = new Map()
     for (let i = 0; i < birthdays.length; i++) {
@@ -77,11 +77,11 @@ function outputOfRezult(birthday, planning) {
 
             let sortedOnDate = new Array();
             let tmpMap = new Map();
-            for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
-                let date = birthday.get(getTotalMonth + 1)[j].date.get('date');
-                tmpMap.set(date, j);
-                sortedOnDate.push(date);
-            }
+            // for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
+            //     let date = birthday.get(getTotalMonth + 1)[j].date.get('date');
+            //     tmpMap.set(date, j);
+            //     sortedOnDate.push(date);
+            // }
 
             sortedOnDate.sort(function (a, b) {
                 return a - b
@@ -109,9 +109,9 @@ function outputOfRezult(birthday, planning) {
 
 let birthdays = birthdayList();
 let gorizontslPlanning = 11;
-let sortedBirthday = sortedBirthdayList(birthdays);
+let sortedBirthday = sortedListOnMonth(birthdays);
 
 outputOfRezult(sortedBirthday, gorizontslPlanning);
 
-export {sortedBirthdayList as funcCreateBirthdayList, outputOfRezult as funcOutputOfRezult, changeDate as funcChangeDate,
+export {sortedListOnMonth as funcCreateBirthdayList, outputOfRezult as funcOutputOfRezult, changeDate as funcChangeDate,
 getAge as funcGetAge, pluralization as funcPluralization};
