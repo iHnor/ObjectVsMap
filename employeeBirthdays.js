@@ -90,8 +90,8 @@ function outputOfRezult(birthday, planning) {
             for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
                 let sortedData = (birthday.get(getTotalMonth + 1))[tmpMap.get(sortedOnDate[j])];
                 let personAge = getAge(sortedData.date);
-                let dayOfBirth = sortedData.date.get('date') < 10 ? '0' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
-                console.log(`(${dayOfBirth}) - ${sortedData.name} (${personAge})`);
+                let dayOfBirth = sortedData.date.get('date') < 10 ? ' ' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
+                console.log(`${dayOfBirth} - ${sortedData.name} (${personAge})`);
             }
             console.log('\n');
         }

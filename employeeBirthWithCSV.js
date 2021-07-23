@@ -2,31 +2,20 @@ const moment = require('moment');
 const csv = require('csv-parser');
 const fs = require('fs');
 
-function readCSVfile(){
-    const results = [];
 
-    fs.createReadStream('employeeBirthdays.csv')
-    .pipe(csv())
-    .on('data', (data) => employeesData.push(data))
-    .on('end', () => {
-        console.log(results);
-    });
-    return         
-}
+let employeesData = [];
 
-function birthdayList() {
-
-    let employeesBirthdays = [
-        { name: 'Ваня Иванов', date: moment([2000, 7, 29]) },
-        { name: 'Игрик Игрикович', date: moment([1989, 7, 28]) },
-        { name: 'Артур Артурович', date: moment([2001, 7, 4]) },
-        { name: 'Петя Петров', date: moment([1999, 10, 23]) },
-        { name: 'Коля Новогодний', date: moment([1985, 12, 5]) },
-        { name: 'Стас Рождественский', date: moment([1993, 6, 8]) },
-        { name: 'Николай Васильевич', date: moment([2000, 8, 16]) }
-    ]
-    return employeesBirthdays;
-}
+fs.createReadStream('employeeBirthdays.csv')
+.pipe(csv())
+.on('data', (data) => employeesData.push(data))
+.on('end', () => {
+    
+    for( let i = 0; i < employeesData.length; i++){
+        employeesData[i].date = moment([employeesData[i].year, employeesData[i].month, employeesData[i].day]);
+    }
+    // console.log(employeesData);
+    main(employeesData);  
+});
 
 function sortedBirthdayList(birthdays, planning) {
 
@@ -104,8 +93,8 @@ function outputOfRezult(birthday, planning) {
             for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
                 let sortedData = (birthday.get(getTotalMonth + 1))[tmpMap.get(sortedOnDate[j])];
                 let personAge = getAge(sortedData.date);
-                let dayOfBirth = sortedData.date.get('date') < 10 ? '0' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
-                console.log(`(${dayOfBirth}) - ${sortedData.name} (${personAge})`);
+                let dayOfBirth = sortedData.date.get('date') < 10 ? ' ' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
+                console.log(`${dayOfBirth}  - ${sortedData.name} (${personAge})`);
             }
             console.log('\n');
         }
@@ -120,11 +109,10 @@ function outputOfRezult(birthday, planning) {
     }
 }
 
+function main(birthdays){
+    // console.log(birthdays);
+    let gorizontslPlanning = 11;
+    let sortedBirthday = sortedBirthdayList(birthdays);
 
-let birthdays = birthdayList();
-let gorizontslPlanning = 11;
-let sortedBirthday = sortedBirthdayList(birthdays);
-
-// outputOfRezult(sortedBirthday, gorizontslPlanning);
-
-readCSVfile();
+    outputOfRezult(sortedBirthday, gorizontslPlanning);
+}
