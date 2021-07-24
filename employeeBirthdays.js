@@ -82,9 +82,9 @@ function outputOfRezult(birthday, planning) {
             //     tmpMap.set(date, j);
             //     sortedOnDate.push(date);
             // }
-
-            sortedOnDate.sort(function (a, b) {
-                return a - b
+            
+            birthday.get(getTotalMonth + 1).sort(function (a, b) {
+                return a.date.get('date') - b.date.get('date')
             });
 
             for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
@@ -113,5 +113,5 @@ let sortedBirthday = sortedListOnMonth(birthdays);
 
 outputOfRezult(sortedBirthday, gorizontslPlanning);
 
-export {sortedListOnMonth as funcCreateBirthdayList, outputOfRezult as funcOutputOfRezult, changeDate as funcChangeDate,
-getAge as funcGetAge, pluralization as funcPluralization};
+// export {sortedListOnMonth as funcCreateBirthdayList, outputOfRezult as funcOutputOfRezult, changeDate as funcChangeDate,
+// getAge as funcGetAge, pluralization as funcPluralization};
