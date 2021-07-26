@@ -3,9 +3,9 @@ const moment = require('moment');
 function birthdayList() {
 
     let employeesBirthdays = [
-        { name: 'Ваня Иванов', date: moment([2000, 7, 29]) },
+        { name: 'Ваня Иванов', date: moment([2000, 7, 1]) },
         { name: 'Игрик Игрикович', date: moment([1989, 7, 28]) },
-        { name: 'Артур Артурович', date: moment([2001, 7, 4]) },
+        { name: 'Артур Артурович', date: moment([2001, 7, 16]) },
         { name: 'Петя Петров', date: moment([1999, 10, 23]) },
         { name: 'Коля Новогодний', date: moment([1985, 12, 5]) },
         { name: 'Стас Рождественский', date: moment([1993, 6, 8]) },
@@ -75,20 +75,12 @@ function outputOfRezult(birthday, planning) {
             let changeTheDate = changeDate(getTotalMonth);
             console.log(`${changeTheDate} ${getTotalYear}`);
 
-            let sortedOnDate = new Array();
-            let tmpMap = new Map();
-            // for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
-            //     let date = birthday.get(getTotalMonth + 1)[j].date.get('date');
-            //     tmpMap.set(date, j);
-            //     sortedOnDate.push(date);
-            // }
-            
             birthday.get(getTotalMonth + 1).sort(function (a, b) {
-                return a.date.get('date') - b.date.get('date')
+                return a.date.get('date') - b.date.get('date');
             });
 
             for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
-                let sortedData = (birthday.get(getTotalMonth + 1))[tmpMap.get(sortedOnDate[j])];
+                let sortedData = (birthday.get(getTotalMonth + 1))[j];
                 let personAge = getAge(sortedData.date);
                 let dayOfBirth = sortedData.date.get('date') < 10 ? ' ' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
                 console.log(`${dayOfBirth} - ${sortedData.name} (${personAge})`);
@@ -108,7 +100,7 @@ function outputOfRezult(birthday, planning) {
 
 
 let birthdays = birthdayList();
-let gorizontslPlanning = 11;
+let gorizontslPlanning = 0;
 let sortedBirthday = sortedListOnMonth(birthdays);
 
 outputOfRezult(sortedBirthday, gorizontslPlanning);

@@ -13,11 +13,12 @@ fs.createReadStream('employeeBirthdays.csv')
     for( let i = 0; i < employeesData.length; i++){
         employeesData[i].date = moment([employeesData[i].year, employeesData[i].month, employeesData[i].day]);
     }
-    // console.log(employeesData);
+
     main(employeesData);  
+
 });
 
-function sortedBirthdayList(birthdays, planning) {
+function sortedBirthdayList(birthdays) {
 
     let map = new Map()
     for (let i = 0; i < birthdays.length; i++) {
@@ -43,27 +44,25 @@ function changeDate(dateNumber) {
     return monthList[dateNumber];
 }
 
-function pluralization(numberOfOld) {
+function pluralization(numberOfOld, words) {
 
     let sNumb = numberOfOld % 10
     let dNumb = numberOfOld % 100
 
     if ((10 <= dNumb && dNumb <= 20) || (sNumb == 0) || (5 <= sNumb && sNumb <= 20))
-        return "лет"
+        return `${numberOfOld} ${words[0]}`;
     else if (sNumb == 1)
-        return "год"
+        return `${numberOfOld} ${words[1]}`;
     else
-        return "года"
+        return `${numberOfOld} ${words[2]}`;
 }
 
-function getAge(yearOfBirth) {
+function getAge(yearOfBirth, todayYear) {
 
-    let month = yearOfBirth.get('month') < 10 ? '0' + String(yearOfBirth.get('month')) : String(yearOfBirth.get('month'));
-    let date = yearOfBirth.get('date') < 10 ? '0' + String(yearOfBirth.get('date')) : String(yearOfBirth.get('date'));
-    let birthdayDate = String(yearOfBirth.get('year')) + month + date
-    let ageOfPerson = moment(birthdayDate, "YYYYMMDD").fromNow().split(' ')[0];
+    let ageOfPerson = todayYear - yearOfBirth.get('year') ;
+    let words = ["лет", "год", "года"];
 
-    return ageOfPerson + ' ' + pluralization(Number(ageOfPerson))
+    return pluralization(Number(ageOfPerson), words);
 }
 
 function outputOfRezult(birthday, planning) {
@@ -78,25 +77,17 @@ function outputOfRezult(birthday, planning) {
             let changeTheDate = changeDate(getTotalMonth);
             console.log(`${changeTheDate} ${getTotalYear}`);
 
-            let sortedOnDate = new Array();
-            let tmpMap = new Map();
-            for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
-                let date = birthday.get(getTotalMonth + 1)[j].date.get('date');
-                tmpMap.set(date, j);
-                sortedOnDate.push(date);
-            }
-
-            sortedOnDate.sort(function (a, b) {
-                return a - b
+            birthday.get(getTotalMonth + 1).sort(function (a, b) {
+                return a.date.get('date') - b.date.get('date');
             });
 
             for (let j = 0; j < birthday.get(getTotalMonth + 1).length; j++) {
-                let sortedData = (birthday.get(getTotalMonth + 1))[tmpMap.get(sortedOnDate[j])];
-                let personAge = getAge(sortedData.date);
-                let dayOfBirth = sortedData.date.get('date') < 10 ? ' ' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
-                console.log(`${dayOfBirth}  - ${sortedData.name} (${personAge})`);
+                let sortedData = (birthday.get(getTotalMonth + 1))[j];
+                let personAge = getAge(sortedData.date, getTotalYear);
+                let dayOfBirth = sortedData.date.get('date') < 10 ? '0' + String(sortedData.date.get('date')) : String(sortedData.date.get('date'));
+
+                console.log(`${dayOfBirth} - ${sortedData.name} (${personAge})`);
             }
-            console.log('\n');
         }
 
         if (getTotalMonth == 11) {
@@ -105,13 +96,13 @@ function outputOfRezult(birthday, planning) {
         }
         else
             getTotalMonth++;
-
-    }
+        
+    }   
 }
 
 function main(birthdays){
-    // console.log(birthdays);
-    let gorizontslPlanning = 11;
+
+    let gorizontslPlanning = 8;
     let sortedBirthday = sortedBirthdayList(birthdays);
 
     outputOfRezult(sortedBirthday, gorizontslPlanning);
